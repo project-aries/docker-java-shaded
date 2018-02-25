@@ -43,6 +43,16 @@ publishing {
     }
 }
 
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.whenConfigured {
+                p.depdencies = p.dependencies.findAll { dep -> dep.artifactId.notIn(['docker-java'])}
+            }
+        }
+    }
+}
+
 artifactory {
     contextUrl = artifactoryURL
     publish {

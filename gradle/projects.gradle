@@ -21,7 +21,7 @@ allprojects {
     }
 
     dependencies {
-        compile group: 'com.github.docker-java', name: 'docker-java', version: '3.0.14'
+        compileOnly group: 'com.github.docker-java', name: 'docker-java', version: '3.0.14'
     }
 
     tasks.withType(JavaCompile) {

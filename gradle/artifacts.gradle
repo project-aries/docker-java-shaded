@@ -12,6 +12,7 @@ shadowJar {
 
 jar {
     dependsOn shadowJar
+    duplicatesStrategy = 'exclude'
     manifest {
         attributes 'Implementation-Title': "${project.name}",
                    'Implementation-Version': "${->project.version}",

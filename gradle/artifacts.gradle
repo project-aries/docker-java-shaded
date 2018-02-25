@@ -1,3 +1,8 @@
+def packagesToRelocate = ['javassist', 'org.glassfish', 'org.jvnet', 'jersey.repackaged',
+        'com.fasterxml', 'io.netty', 'org.bouncycastle', 'org.apache', 'org.aopalliance',
+        'org.scijava', 'com.google', 'com.github', 'javax.annotation', 'javax.inject',
+        'javax.ws']
+    
 shadowJar {
     manifest {
         attributes 'Implementation-Title': "${project.name}",
@@ -10,21 +15,9 @@ shadowJar {
 
     classifier = 'all'
     mergeServiceFiles()
-    relocate 'javassist', "${rootProject.group}.shaded.javassist"
-    // relocate 'Shadow.shaded', "${rootProject.group}.shaded.Shadow.shaded"
-    relocate 'org.glassfish', "${rootProject.group}.shaded.org.glassfish"
-    relocate 'org.jvnet', "${rootProject.group}.shaded.org.jvnet"
-    relocate 'jersey.repackaged', "${rootProject.group}.shaded.jersey.repackaged"
-    relocate 'com.fasterxml', "${rootProject.group}.shaded.com.fasterxml"
-    relocate 'io.netty', "${rootProject.group}.shaded.io.netty"
-    relocate 'org.bouncycastle', "${rootProject.group}.shaded.org.bouncycastle"
-    relocate 'org.apache', "${rootProject.group}.shaded.org.apache"
-    relocate 'org.aopalliance', "${rootProject.group}.shaded.org.aopalliance"
-    relocate 'org.newsclub', "${rootProject.group}.shaded.org.newsclub"
-    relocate 'org.scijava', "${rootProject.group}.shaded.org.scljava"
-    relocate 'org.slf4j', "${rootProject.group}.shaded.org.slf4j"
-    relocate 'com.google', "${rootProject.group}.shaded.com.google"
-    relocate 'javax', "${rootProject.group}.shaded.javax"
-    relocate 'com.github', "${rootProject.group}.shaded.com.github"
-}
 
+    def basePackage = "${rootProject.group}.${rootProject.name}".replaceAll('-','.')
+    packagesToRelocate.each { pkg ->
+        relocate pkg, "${basePackage}.${pkg}"
+    }
+}

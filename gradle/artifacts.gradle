@@ -4,7 +4,7 @@ def packagesToRelocate = ['javassist', 'org.glassfish', 'org.jvnet', 'jersey.rep
     
 shadowJar {
     mergeServiceFiles()
-    def basePackage = "${rootProject.group}.${rootProject.name}".replaceAll('-','.')
+    def basePackage = "com.github.dockerjava.shaded"
     packagesToRelocate.each { pkg ->
         relocate pkg, "${basePackage}.${pkg}"
     }

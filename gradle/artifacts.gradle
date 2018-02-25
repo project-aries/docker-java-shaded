@@ -3,6 +3,15 @@ def packagesToRelocate = ['javassist', 'org.glassfish', 'org.jvnet', 'jersey.rep
         'org.scijava', 'com.google', 'javax.annotation', 'javax.inject', 'javax.ws']
     
 shadowJar {
+    mergeServiceFiles()
+    def basePackage = "${rootProject.group}.${rootProject.name}".replaceAll('-','.')
+    packagesToRelocate.each { pkg ->
+        relocate pkg, "${basePackage}.${pkg}"
+    }
+}
+
+jar {
+    dependsOn shadowJar
     manifest {
         attributes 'Implementation-Title': "${project.name}",
                    'Implementation-Version': "${->project.version}",
@@ -11,12 +20,5 @@ shadowJar {
                    'Built-JDK': System.getProperty('java.version'),
                    'Built-Gradle': gradle.gradleVersion
     }
-
-    classifier = 'all'
-    mergeServiceFiles()
-
-    def basePackage = "${rootProject.group}.${rootProject.name}".replaceAll('-','.')
-    packagesToRelocate.each { pkg ->
-        relocate pkg, "${basePackage}.${pkg}"
-    }
+    from zipTree(shadowJar.outputs.files.singleFile)
 }

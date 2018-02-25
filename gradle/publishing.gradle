@@ -38,9 +38,7 @@ apply plugin: com.jfrog.bintray.gradle.BintrayPlugin
 publishing {
     publications {
         mavenJava (MavenPublication) {
-            artifact shadowJar {
-                classifier ''
-            }
+            from components.java
         }
     }
 }

@@ -1,7 +1,6 @@
 def packagesToRelocate = ['javassist', 'org.glassfish', 'org.jvnet', 'jersey.repackaged',
         'com.fasterxml', 'io.netty', 'org.bouncycastle', 'org.apache', 'org.aopalliance',
-        'org.scijava', 'com.google', 'com.github', 'javax.annotation', 'javax.inject',
-        'javax.ws']
+        'org.scijava', 'com.google', 'javax.annotation', 'javax.inject', 'javax.ws']
     
 shadowJar {
     manifest {

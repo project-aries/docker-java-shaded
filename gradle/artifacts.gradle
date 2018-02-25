@@ -1,4 +1,4 @@
-jar {
+shadowJar {
     manifest {
         attributes 'Implementation-Title': "${project.name}",
                    'Implementation-Version': "${->project.version}",
@@ -7,34 +7,24 @@ jar {
                    'Built-JDK': System.getProperty('java.version'),
                    'Built-Gradle': gradle.gradleVersion
     }
-}
 
-task sourcesJar(type: Jar) {
-    classifier 'sources'
-    from sourceSets.main.allSource
-}
-
-task docsJar(type: Jar, dependsOn: javadoc) {
-    classifier 'docs'
-    from javadoc.destinationDir
-}
-
-task testsJar(type: Jar) {
-    classifier = 'tests'
-    from sourceSets.test.output
-}
-
-shadowJar {
     classifier = 'all'
     mergeServiceFiles()
-    relocate 'org.aopalliance', "${group}.shaded.org.aopalliance"
-    relocate 'org.objectweb', "${group}.shaded.org.objectweb"
-    relocate 'com.google', "${group}.shaded.com.google"
-    relocate 'net.sf', "${group}.shaded.net.sf"
-    relocate 'javax.inject', "${group}.shaded.javax.inject"
-    relocate 'org.jclouds', "${group}.shaded.org.jclouds"
-    relocate 'javax.inject', "${group}.shaded.javax.inject"
-    relocate 'javax.annotation', "${group}.shaded.javax.annotation"
-    relocate 'javax.ws.rs', "${group}.shaded.javax.ws.rs"
+    relocate 'javassist', "${rootProject.group}.shaded.javassist"
+    // relocate 'Shadow.shaded', "${rootProject.group}.shaded.Shadow.shaded"
+    relocate 'org.glassfish', "${rootProject.group}.shaded.org.glassfish"
+    relocate 'org.jvnet', "${rootProject.group}.shaded.org.jvnet"
+    relocate 'jersey.repackaged', "${rootProject.group}.shaded.jersey.repackaged"
+    relocate 'com.fasterxml', "${rootProject.group}.shaded.com.fasterxml"
+    relocate 'io.netty', "${rootProject.group}.shaded.io.netty"
+    relocate 'org.bouncycastle', "${rootProject.group}.shaded.org.bouncycastle"
+    relocate 'org.apache', "${rootProject.group}.shaded.org.apache"
+    relocate 'org.aopalliance', "${rootProject.group}.shaded.org.aopalliance"
+    relocate 'org.newsclub', "${rootProject.group}.shaded.org.newsclub"
+    relocate 'org.scijava', "${rootProject.group}.shaded.org.scljava"
+    relocate 'org.slf4j', "${rootProject.group}.shaded.org.slf4j"
+    relocate 'com.google', "${rootProject.group}.shaded.com.google"
+    relocate 'javax', "${rootProject.group}.shaded.javax"
+    relocate 'com.github', "${rootProject.group}.shaded.com.github"
 }
 

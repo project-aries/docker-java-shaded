@@ -34,16 +34,13 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: org.jfrog.gradle.plugin.artifactory.ArtifactoryPlugin
 apply plugin: com.jfrog.bintray.gradle.BintrayPlugin
-apply plugin: org.ajoberstar.gradle.git.publish.GitPublishPlugin
 
 publishing {
     publications {
         mavenJava (MavenPublication) {
-            from components.java             
-            artifact sourcesJar
-            artifact docsJar
-            artifact testsJar
-            artifact shadowJar
+            artifact shadowJar {
+                classifier ''
+            }
         }
     }
 }
@@ -99,16 +96,6 @@ bintray {
         }
     }
 }
-
-gitPublish {
-    repoUri = "${githubSite}/${rootProject.findProperty('organization')}/${project.rootProject.name}.git"
-    branch = "${project.name}-gh-pages"
-    contents {
-        from zipTree(docsJar.archivePath)
-        into 'docs'
-    }
-}
-gitPublishPush.dependsOn docsJar
 
 /*
  * Check environment for property and if that fails 

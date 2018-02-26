@@ -24,3 +24,13 @@ jar {
     }
     from zipTree(shadowJar.outputs.files.singleFile)
 }
+
+task sourcesJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
+task docsJar(type: Jar, dependsOn: javadoc) {
+    classifier 'docs'
+    from javadoc.destinationDir
+}

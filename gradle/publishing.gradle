@@ -39,16 +39,8 @@ publishing {
     publications {
         mavenJava (MavenPublication) {
             from components.java
-        }
-    }
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            pom.whenConfigured {
-                p.depdencies = p.dependencies.findAll { dep -> dep.artifactId.notIn(['docker-java'])}
-            }
+            artifact sourcesJar
+            artifact docsJar
         }
     }
 }

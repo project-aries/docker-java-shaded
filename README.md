@@ -10,7 +10,7 @@ Shaded/Shadow/Uber/Fat/All version of the [docker-java](https://github.com/docke
 
 ## Latest Release
 
-Can be sourced from Artifactory/Bintray like so:
+Can be sourced from jcenter like so:
 ```
 <dependency>
     <groupId>com.aries</groupId>

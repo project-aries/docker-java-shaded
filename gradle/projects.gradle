@@ -1,10 +1,5 @@
 allprojects {
 
-    apply plugin: 'java'
-    apply plugin: 'com.github.johnrengelman.shadow'
-    apply from: "$rootDir/gradle/artifacts.gradle"
-    apply from: "$rootDir/gradle/publishing.gradle"
-
     repositories {
         mavenLocal()
         jcenter()
@@ -20,12 +15,21 @@ allprojects {
         }
     }
 
+    configurations {
+        dockerJava
+    }
+
     dependencies {
-        compileOnly group: 'com.github.docker-java', name: 'docker-java', version: '3.0.14'
+        dockerJava group: 'com.github.docker-java', name: 'docker-java', version: '3.0.14'
     }
 
     tasks.withType(JavaCompile) {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+
+    apply plugin: 'java'
+    apply plugin: 'com.github.johnrengelman.shadow'
+    apply from: "$rootDir/gradle/artifacts.gradle"
+    apply from: "$rootDir/gradle/publishing.gradle"
 }

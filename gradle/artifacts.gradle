@@ -3,7 +3,7 @@ def packagesToRelocate = ['javassist', 'org.glassfish', 'org.jvnet', 'jersey.rep
         'org.scijava', 'com.google', 'javax.annotation', 'javax.inject', 'javax.ws']
     
 shadowJar {
-    from rootProject.configurations.findByName('compileOnly')
+    from rootProject.configurations.findByName('dockerJava')
     mergeServiceFiles()
     def basePackage = "com.github.dockerjava.shaded"
     packagesToRelocate.each { pkg ->

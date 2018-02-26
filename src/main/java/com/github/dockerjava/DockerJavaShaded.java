@@ -16,6 +16,10 @@
 
 package com.github.dockerjava;
 
-final class DockerJavaShaded {
-    public static final String WHO_AM_I = "Shaded version of the docker-java library";
+public enum DockerJavaShaded {
+    DESCRIPTION("Shaded version of the docker-java library");
+    private final String description;
+    private DockerJavaShaded(final String description) {
+        this.description = description;
+    }
 }

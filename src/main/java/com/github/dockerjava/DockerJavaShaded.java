@@ -16,6 +16,9 @@
 
 package com.github.dockerjava;
 
+/**
+ *    Dummy file to get a project created but if you have a reason to use it then by all means have at it!!!
+ */
 public enum DockerJavaShaded {
     DESCRIPTION("Shaded version of the docker-java library");
     private final String description;

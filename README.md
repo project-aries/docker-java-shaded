@@ -1,6 +1,6 @@
 # docker-java-shaded
 
-Shaded version of the [docker-java](https://github.com/docker-java/docker-java) library
+Shaded/Shadow/Uber/Fat/All version of the [docker-java](https://github.com/docker-java/docker-java) library
 
 ## Status
 
@@ -10,7 +10,7 @@ Shaded version of the [docker-java](https://github.com/docker-java/docker-java) 
 
 ## Latest Release
 
-Can be sourced from Artifactory/Bintray like so:
+Can be sourced from jcenter like so:
 ```
 <dependency>
     <groupId>com.aries</groupId>

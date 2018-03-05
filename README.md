@@ -8,6 +8,12 @@ Shaded/Shadow/Uber/Fat/All version of the [docker-java](https://github.com/docke
 | :---: | :---: | :---: |
 | [![Stack Overflow](https://img.shields.io/badge/stack-overflow-4183C4.svg)](https://stackoverflow.com/questions/tagged/docker-java-shaded) | [![Build Status](https://travis-ci.org/project-aries/docker-java-shaded.svg?branch=master)](https://travis-ci.org/project-aries/docker-java-shaded) | [![docker-java-shaded](https://api.bintray.com/packages/project-aries/libs-release-local/docker-java-shaded/images/download.svg) ](https://bintray.com/project-aries/libs-release-local/docker-java-shaded/_latestVersion) |
 
+## Motivation
+
+As the current maintainer of the [gradle-docker-plugin](https://github.com/bmuschko/gradle-docker-plugin) project we had a need to use a shaded version of `docker-java` to get around various `buildscript` clobberring issues. As the folks at the `docker-java` project are busy with other things, and can't immediately make this happen, I decided to go ahead and code something myself until they have the free time in which to do so.
+
+If a new release of `docker-java` happens that I miss, and you'd like a new version of this library spun up based on it, just open an ISSUE and ask.
+
 ## Latest Release
 
 Can be sourced from jcenter like so:

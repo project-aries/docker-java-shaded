@@ -33,7 +33,7 @@ release {
     grgit = org.ajoberstar.grgit.Grgit.open(dir: project.rootDir.absolutePath, creds: credentials)
     versionStrategy org.ajoberstar.gradle.git.release.semver.RebuildVersionStrategy.INSTANCE
     versionStrategy org.ajoberstar.gradle.git.release.opinion.Strategies.FINAL
-    // defaultVersionStrategy = org.ajoberstar.gradle.git.release.opinion.Strategies.SNAPSHOT
+    defaultVersionStrategy = org.ajoberstar.gradle.git.release.opinion.Strategies.SNAPSHOT
     tagStrategy {
         generateMessage = { version -> "Version ${->project.version}" }
     }

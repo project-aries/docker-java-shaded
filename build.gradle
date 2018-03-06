@@ -21,7 +21,7 @@ buildscript {
 
 // must be set prior to 'release-opinion' plugin getting applied 
 // as they are magically used behind the scenes
-if (Boolean.valueOf(findProperty('ciRelease')) {
+if (Boolean.valueOf(findProperty('ciRelease'))) {
     rootProject.ext.setProperty('release.stage', releaseStage.trim())
     rootProject.ext.setProperty('release.scope', releaseScope.trim())
 }

@@ -14,6 +14,8 @@ As the current maintainer of the [gradle-docker-plugin](https://github.com/bmusc
 
 If a new release of `docker-java` happens that I miss, and you'd like a new version of this library spun up based on it, just open an ISSUE and ask.
 
+If a security vulnerability arises, and an internal dependency needs to be bumped, and assuming the `docker-java` can't be easily updated, then just open an ISSUE and note the library and we can spin a new point release to accommadate you and the greater community.
+
 ## Latest Release
 
 Can be sourced from jcenter like so:

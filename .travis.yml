@@ -21,7 +21,7 @@ jobs:
       script: skip
       deploy:
         provider: script
-        script: ./gradlew -s clean build release -PbintrayUsername=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY -PreleaseUsername=cdancy -PreleasePassword=$GH_TOKEN -PreleaseRepository=java-libraries -PciRelease=true
+        script: ./gradlew -s clean build release -PbintrayUsername=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY -PreleaseUsername=cdancy -PreleasePassword=$GH_TOKEN -PreleaseRepository=libs-release-local -PciRelease=true
         on:
           tags: true
 

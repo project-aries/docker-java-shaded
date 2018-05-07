@@ -42,25 +42,24 @@ release {
 // only publish to Bintray and Github if done from CI environment.
 if (Boolean.valueOf(project.ciRelease)) {
 
-// 1.) The release process must first build the main/sub projects.
-def buildTasks = ['build']
-tasks.release.dependsOn(buildTasks.collect { task ->
-    allprojects.collect {
-        rootProject.name == it.name ? ":${task}" : ":${it.name}:${task}"
-    }.flatten()
-}.flatten())
+    // 1.) The release process must first build the main/sub projects.
+    def buildTasks = ['build']
+    tasks.release.dependsOn(buildTasks.collect { task ->
+        allprojects.collect {
+            rootProject.name == it.name ? ":${task}" : ":${it.name}:${task}"
+        }.flatten()
+    }.flatten())
 
-// 2.) The release process, when finished, can now upload artifacts.
-def publishTasks = [uploadTask]
-if (Boolean.valueOf(publishGithubPages).booleanValue() && releaseStage.trim().equals('final')) {
-    publishTasks << 'gitPublishPush'
-}
-tasks.release.finalizedBy(publishTasks.collect { task ->
-    allprojects.collect {
-        rootProject.name == it.name ? ":${task}" : ":${it.name}:${task}"
-    }.flatten()
-}.flatten())
-
+    // 2.) The release process, when finished, can now upload artifacts.
+    def publishTasks = [uploadTask]
+    if (Boolean.valueOf(publishGithubPages).booleanValue() && releaseStage.trim().equals('final')) {
+        publishTasks << 'gitPublishPush'
+    }
+    tasks.release.finalizedBy(publishTasks.collect { task ->
+        allprojects.collect {
+            rootProject.name == it.name ? ":${task}" : ":${it.name}:${task}"
+        }.flatten()
+    }.flatten())
 }
 
 apply from: "$rootDir/gradle/projects.gradle"

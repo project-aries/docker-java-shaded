@@ -11,9 +11,19 @@ cache:
     - $HOME/.gradle/wrapper/
 
 install: true
-
-script:
-  - ./gradlew -s -Dorg.gradle.daemon=false clean build publishToMavenLocal
+jobs:
+  include:
+    - stage: all tests
+      script:
+        # Run functional tests against kubernetes instance.
+        - ./gradlew -s -Dorg.gradle.daemon=false clean build publishToMavenLocal
+    - stage: release
+      script: skip
+      deploy:
+        provider: script
+        script: ./gradlew -s clean build release -PbintrayUsername=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY -PreleaseUsername=cdancy -PreleasePassword=$GH_TOKEN -PreleaseRepository=java-libraries -PciRelease=true
+        on:
+          tags: true
 
 after_script:
   - bash <(curl -s https://codecov.io/bash)

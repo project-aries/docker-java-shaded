@@ -45,11 +45,20 @@ publishing {
     }
 }
 
+ext {
+    githubSite = 'https://github.com'
+    orgName = rootProject.findProperty('organization')
+    publishRepository = (rootProject.findProperty('release.stage') == 'final'
+        || Boolean.valueOf(rootProject.findProperty('ciRelease')))
+            ? releaseRepository
+            : snapshotRepository
+}
+
 artifactory {
     contextUrl = artifactoryURL
     publish {
         repository {
-            repoKey = rootProject.findProperty('release.stage') == 'final' ? releaseRepository : snapshotRepository
+            repoKey = project.publishRepository
             username = artifactoryUser
             password = artifactoryPassword
             mavenCompatible = true
@@ -60,10 +69,6 @@ artifactory {
     }
 }
 
-ext {
-    githubSite = 'https://github.com'
-}
-
 bintray {
 
     user = resolveProperty('bintrayUsername')
@@ -72,11 +77,9 @@ bintray {
     publish = true
 
     pkg {
-        def orgName = rootProject.findProperty('organization')
-        
-        userOrg = orgName
-        repo = rootProject.findProperty('release.stage') == 'final' ? releaseRepository : snapshotRepository
-        name = project.name
+        userOrg = project.orgName
+        repo = project.publishRepository
+        name = rootProject.name
         websiteUrl = "${githubSite}/${orgName}/${project.name}"
         issueTrackerUrl = "${githubSite}/${orgName}/${project.name}/issues"
         vcsUrl = "${githubSite}/${orgName}/${project.name}.git"
@@ -88,11 +91,6 @@ bintray {
         version {
             released  = new Date()
             vcsTag = "v${project.version}"
-
-            gpg {
-                sign = true
-                passphrase = resolveProperty('gpgPassphrase')
-            }
         }
     }
 }

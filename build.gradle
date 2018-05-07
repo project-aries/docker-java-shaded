@@ -21,7 +21,7 @@ buildscript {
 
 // must be set prior to 'release-opinion' plugin getting applied 
 // as they are magically used behind the scenes
-if (Boolean.valueOf(findProperty('ciRelease'))) {
+if (!Boolean.valueOf(findProperty('ciRelease'))) {
     rootProject.ext.setProperty('release.stage', releaseStage.trim())
     rootProject.ext.setProperty('release.scope', releaseScope.trim())
 }
@@ -38,6 +38,9 @@ release {
         generateMessage = { version -> "Version ${->project.version}" }
     }
 }
+
+// only publish to Bintray and Github if done from CI environment.
+if (Boolean.valueOf(project.ciRelease)) {
 
 // 1.) The release process must first build the main/sub projects.
 def buildTasks = ['build']
@@ -57,5 +60,7 @@ tasks.release.finalizedBy(publishTasks.collect { task ->
         rootProject.name == it.name ? ":${task}" : ":${it.name}:${task}"
     }.flatten()
 }.flatten())
+
+}
 
 apply from: "$rootDir/gradle/projects.gradle"

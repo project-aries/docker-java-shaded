@@ -5,8 +5,8 @@ allprojects {
         jcenter()
         maven {
             url "https://plugins.gradle.org/m2/"
-        }        
-        maven { 
+        }
+        maven {
             url artifactoryURL
             credentials {
                 username = artifactoryUser
@@ -20,7 +20,7 @@ allprojects {
     }
 
     dependencies {
-        dockerJava group: 'com.github.docker-java', name: 'docker-java', version: '3.1.0-rc-2'
+        dockerJava group: 'com.github.docker-java', name: 'docker-java', version: '3.1.0-rc-3'
     }
 
     tasks.withType(JavaCompile) {

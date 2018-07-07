@@ -29,7 +29,6 @@ allprojects {
     }
 
     apply plugin: 'java'
-    apply plugin: 'com.github.johnrengelman.shadow'
     apply from: "$rootDir/gradle/artifacts.gradle"
     apply from: "$rootDir/gradle/publishing.gradle"
 }

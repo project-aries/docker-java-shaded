@@ -1,7 +1,38 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url artifactoryURL
+            credentials {
+                username = artifactoryUser
+                password = artifactoryPassword
+            }
+        }
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
+    }
+}
+
+apply plugin: com.github.jengelman.gradle.plugins.shadow.ShadowPlugin
+
+configurations {
+    cglibDep
+}
+
+dependencies {
+    cglibDep 'cglib:cglib:3.2.0'
+}
+
 def packagesToRelocate = ['javassist', 'org.glassfish', 'org.jvnet', 'jersey.repackaged',
-        'com.fasterxml', 'io.netty', 'org.bouncycastle', 'org.apache', 'org.aopalliance',
-        'org.scijava', 'com.google', 'javax.annotation', 'javax.inject', 'javax.ws']
-    
+                          'com.fasterxml', 'io.netty', 'org.bouncycastle', 'org.apache',
+                          'org.aopalliance', 'org.scijava', 'com.google', 'javax.annotation',
+                          'javax.inject', 'javax.ws', 'net.sf', 'org.objectweb']
+
 shadowJar {
     from rootProject.configurations.findByName('dockerJava')
     mergeServiceFiles()
@@ -33,4 +64,14 @@ task sourcesJar(type: Jar) {
 task docsJar(type: Jar, dependsOn: javadoc) {
     classifier 'docs'
     from javadoc.destinationDir
+}
+
+task cglibJar(type: com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar, dependsOn: jar) {
+    classifier 'cglib'
+    from zipTree(jar.outputs.files.singleFile)
+    configurations = [project.configurations.cglibDep]
+    def basePackage = "com.github.dockerjava.shaded"
+    packagesToRelocate.each { pkg ->
+        relocate pkg, "${basePackage}.${pkg}".toString()
+    }
 }

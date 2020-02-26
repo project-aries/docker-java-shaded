@@ -40,6 +40,9 @@ shadowJar {
     packagesToRelocate.each { pkg ->
         relocate pkg, "${basePackage}.${pkg}"
     }
+    // Keep this uber JAR free of java 9 and java 11 modules for now
+    exclude 'module-info.class'
+    exclude 'META-INF/versions/**'
 }
 
 jar {
